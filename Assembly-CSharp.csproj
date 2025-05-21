@@ -64,7 +64,9 @@
     <Compile Include="Assets\LevelManager.cs" />
     <Compile Include="Assets\EnemyController.cs" />
     <Compile Include="Assets\CameraController.cs" />
+    <Compile Include="Assets\CharacterSelection.cs" />
     <Compile Include="Assets\EnemySpawner.cs" />
+    <Compile Include="Assets\GameManager.cs" />
     <Compile Include="Assets\PlayerController.cs" />
     <Compile Include="Assets\RotatingStarController.cs" />
   </ItemGroup>

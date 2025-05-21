@@ -37,7 +37,7 @@ public class EnemyController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Bullet"))
         {
-            enemyHealth -= 1;
+            enemyHealth -= 5;
 
         }else if (other.gameObject.CompareTag("Sword"))
         {

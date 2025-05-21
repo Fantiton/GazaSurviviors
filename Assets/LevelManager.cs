@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI healthText;
     public GameObject gameOverCanvas;
+    public GameObject pauseMenuPanel;
     int points;
     int playerHealth;
     // Start is called before the first frame update
@@ -25,6 +26,18 @@ public class LevelManager : MonoBehaviour
     {
         scoreText.text = "Wynik: " + points.ToString();
         healthText.text = "HP: " + playerHealth.ToString();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (pauseMenuPanel.activeSelf)
+            {
+                ResumeGame();
+            }
+            else
+            {
+                PauseGame();
+            }
+        }
     }
 
     public void AddPoints(int pointsToAdd)
@@ -47,5 +60,27 @@ public class LevelManager : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        pauseMenuPanel.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        pauseMenuPanel.SetActive(false);    
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1;
+    }
+
+    public void ExitGame()
+    {
+        GameManager.Instance.ExitGame();
     }
 }

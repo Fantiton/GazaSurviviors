@@ -7,10 +7,14 @@ using UnityEngine.UIElements;
 
 public class LevelManager : MonoBehaviour
 {
+    public Side side;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI healthText;
     public GameObject gameOverCanvas;
     public GameObject pauseMenuPanel;
+    public GameObject player;
+    public GameObject modelJew;
+    public GameObject modelArab;
     int points;
     int playerHealth;
     // Start is called before the first frame update
@@ -18,7 +22,23 @@ public class LevelManager : MonoBehaviour
     {
         playerHealth = 10;
         points = 0;
-        gameOverCanvas.SetActive(false);
+        gameOverCanvas.SetActive(false);    
+    }
+
+    public void SetSide(Side s)
+    {
+        side = s;
+        Debug.Log("LevelManager side set to: " + side);
+
+        if (side == Side.Israel)
+        {
+            Instantiate(modelJew, player.transform);
+        }
+
+        if (side == Side.Palestine)
+        {
+            Instantiate(modelArab, player.transform);
+        }
     }
 
     // Update is called once per frame
@@ -56,30 +76,30 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void RestartGame()
+    void RestartGame()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void PauseGame()
+    void PauseGame()
     {
         Time.timeScale = 0;
         pauseMenuPanel.SetActive(true);
     }
 
-    public void ResumeGame()
+    void ResumeGame()
     {
         Time.timeScale = 1;
         pauseMenuPanel.SetActive(false);    
     }
 
-    public void MainMenu()
+    void MainMenu()
     {
         Time.timeScale = 1;
     }
 
-    public void ExitGame()
+    void ExitGame()
     {
         GameManager.Instance.ExitGame();
     }

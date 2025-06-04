@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletSpawn;
     public GameObject bulletPrefab;
     public GameObject swordHandle;
-    public TextMeshProUGUI cEHTMP;
 
     // Start is called before the first frame update
     void Start()
@@ -32,9 +31,8 @@ public class PlayerController : MonoBehaviour
         controllerInput =  new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         enemies = GameObject.FindGameObjectsWithTag("Enemy").ToList();
         enemies = enemies.OrderBy(enemy => Vector3.Distance(enemy.transform.position, transform.position)).ToList();
-        cEHTMP.text = enemies[0].GetComponent<EnemyController>().enemyHealth.ToString();
 
-        if (Vector3.Distance(transform.position, enemies[0].transform.position) < 2f)
+        if (enemies.Count > 0 && Vector3.Distance(transform.position, enemies[0].transform.position) < 2f)
         {
             swordHandle.SetActive(true);
             swordHandle.transform.Rotate(0, 10f, 0);

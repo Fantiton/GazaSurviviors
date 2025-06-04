@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum Side {Israel, Palestine};
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public Side side;
 
     void Awake()
     {
@@ -35,7 +32,27 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(Side s)
     {
-        side = s;
         SceneManager.LoadScene("SampleScene");
+        StartCoroutine(InitializeGame(s));
+    }
+
+    private IEnumerator InitializeGame(Side s)
+    {
+        yield return new WaitForSeconds(0.01f);
+
+        GameObject enemySpawnerObject = GameObject.Find("EnemySpawner");
+        if (enemySpawnerObject != null)
+        {
+            EnemySpawner enemySpawner = enemySpawnerObject.GetComponent<EnemySpawner>();
+            enemySpawner.side = s;
+            Debug.Log("EnemySpawner side set to: " + enemySpawner.side);
+        }
+        GameObject levelManagerObject = GameObject.Find("LevelManager");
+        if (levelManagerObject != null)
+        {
+            LevelManager levelManager = levelManagerObject.GetComponent<LevelManager>();
+            levelManager.SetSide(s);
+            Debug.Log("LevelManager side set to: " + levelManager.side);
+        }
     }
 }
